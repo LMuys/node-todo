@@ -72,13 +72,13 @@ angular.module('todoController', [])
         };
         
         $scope.deleteCompletedTodos = function(todo) {
-            $scope.loading = true;
-            
-            Todos.deleteCompleted
-                .success(function(data) {
-                    $scope.loading = false;
-                    $scope.todos = data;
-            })
+//            $scope.loading = true;
+//            
+//            Todos.deleteCompleted
+//                .success(function(data) {
+//                    $scope.loading = false;
+//                    $scope.todos = data;
+//            });
         };
 
 	}]);
