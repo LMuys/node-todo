@@ -40,10 +40,13 @@ module.exports = function(app) {
     
     // Put todo to update checked
     app.put('/api/todos/:id', function(req, res) {
+        // find the Todo by id and update the field(s)
         Todo.findById(req.params.id, function(err, todo) {
             if (err) res.send(err);
+            // Set false by default
             todo.done = req.body.done || false;
             todo.snoozed = req.body.snoozed || false;
+            // Save the changes
             todo.save(function(err) {
                 if (err) 
                     res.send(err);
@@ -54,12 +57,17 @@ module.exports = function(app) {
     });
     
     app.delete('/api/todos/:id', function(req, res) {
+        // Find the todo by id and then delete it
         Todo.findById(req.params.id).remove(function(err){
             if (err) 
                 res.send(err);
             getTodos(res);
         });
     });
+    
+    app.delete('/api/todos/', function(req, res) {
+        
+    })
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {

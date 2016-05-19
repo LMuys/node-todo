@@ -44,7 +44,7 @@
 				<div class="checkbox"  ng-repeat="todo in todos">
                                     
 				                  <label ng-show="todo.snoozed">This todo is snoozed</label>
-                                  <button ng-click="snooze(todo)">>></button>
+                                  <button type="submit" ng-click="snooze(todo)">>></button>
                                   <label ng-class="{done : todo.done}">
                                   <input type="checkbox" ng-change="checkTodo(todo)" ng-model="todo.done"> {{ todo.text }}
                                   </label>
@@ -70,6 +70,7 @@
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->
 					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+                    <button type="submit" ng-click="deleteCompletedTodos(todo)" class="btn btn-danger btn-lg">Delete Completed To Dos</button>
 				</form>
 			</div>
 		</div>

@@ -4,6 +4,7 @@ angular.module('todoController', [])
 	.controller('mainController', ['$scope','$http','Todos', function($scope, $http, Todos) {
 		$scope.formData = {};
 		$scope.loading = true;
+        
 
 		// GET =====================================================================
 		// when landing on the page, get all todos and show them
@@ -37,8 +38,9 @@ angular.module('todoController', [])
         
         // POST 
         $scope.checkTodo = function(todo) {
-            // call update checkbox from our service
             $scope.loading = true;
+            
+            // call update from our service to update done field
             Todos.update(todo, !todo.done)
                 .success(function(data) {
                     $scope.loading = false;
@@ -48,20 +50,35 @@ angular.module('todoController', [])
         
         $scope.snooze = function(todo) {
             $scope.loading = true;
+            
 			todo.snoozed = !todo.snoozed;
+            // call update from our service to update snooze field
 			Todos.update(todo)
                 .success(function(data) {
                     $scope.todos = data;
                     $scope.loading = false;
                 });
 
-        }
+        };
         
-        $scope.deleteTodo = function() {
+        $scope.deleteTodo = function(todo) {
+            $scope.loading = true;
+            
             Todos.delete(todo)
                 .success(function(data) {
+                    $scope.loading = false;
                     $scope.todos = data;
             });
+        };
+        
+        $scope.deleteCompletedTodos = function(todo) {
+            $scope.loading = true;
+            
+            Todos.deleteCompleted
+                .success(function(data) {
+                    $scope.loading = false;
+                    $scope.todos = data;
+            })
         };
 
 	}]);
