@@ -37,6 +37,29 @@ module.exports = function(app) {
 		});
 
 	});
+    
+    // Put todo to update checked
+    app.put('/api/todos/:id', function(req, res) {
+        Todo.findById(req.params.id, function(err, todo) {
+            if (err) res.send(err);
+            todo.done = req.body.done || false;
+            todo.snoozed = req.body.snoozed || false;
+            todo.save(function(err) {
+                if (err) 
+                    res.send(err);
+                
+                getTodos(res);
+            });
+        });
+    });
+    
+    app.delete('/api/todos/:id', function(req, res) {
+        Todo.findById(req.params.id).remove(function(err){
+            if (err) 
+                res.send(err);
+            getTodos(res);
+        });
+    });
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {
